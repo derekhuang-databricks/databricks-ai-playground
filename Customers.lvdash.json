@@ -1,0 +1,144 @@
+{
+  "datasets": [
+    {
+      "name": "445d5c29",
+      "displayName": "customer",
+      "queryLines": [
+        "SELECT * FROM databricks_ai_playground.sap.customer c\n",
+        "join databricks_ai_playground.sap.order o\n",
+        "on c.customerID = o.customerID\n",
+        "join databricks_ai_playground.sap.customer_addr a\n",
+        "on c.customerID = a.customerID"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "ef33eb9d",
+      "displayName": "Location",
+      "layout": [
+        {
+          "widget": {
+            "name": "map-customer-addresses",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "445d5c29",
+                  "fields": [
+                    {
+                      "name": "gender",
+                      "expression": "`gender`"
+                    },
+                    {
+                      "name": "latitude",
+                      "expression": "`latitude`"
+                    },
+                    {
+                      "name": "longitude",
+                      "expression": "`longitude`"
+                    },
+                    {
+                      "name": "customerID",
+                      "expression": "`customerID`"
+                    },
+                    {
+                      "name": "orderID",
+                      "expression": "`orderID`"
+                    },
+                    {
+                      "name": "sum(order_amount)",
+                      "expression": "SUM(`order_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "symbol-map",
+              "encodings": {
+                "coordinates": {
+                  "latitude": {
+                    "fieldName": "latitude"
+                  },
+                  "longitude": {
+                    "fieldName": "longitude"
+                  }
+                },
+                "color": {
+                  "fieldName": "gender",
+                  "displayName": "Gender",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "size": {
+                  "fieldName": "sum(order_amount)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Order $ Total Amount"
+                },
+                "extra": [
+                  {
+                    "fieldName": "customerID",
+                    "displayName": "Customer ID"
+                  },
+                  {
+                    "fieldName": "orderID",
+                    "displayName": "Order ID"
+                  }
+                ]
+              },
+              "frame": {
+                "title": "Map of Customer Addresses",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 10
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "d0899b55",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "f99298ad",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
